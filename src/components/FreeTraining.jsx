@@ -1,12 +1,26 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import list from '../../public/list.json';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from 'react-slick';
 import Products from './products';
+import axios from 'axios';
 
 function FreeTraining( {item}) {
-    const filterData = list.filter((data) => data.category === "Free");
+  const [training, setTraining] = useState([]);                        //Added to get data from backend
+  useEffect(()=>{
+    const getTraing=async()=>{
+      try{
+      const res  = await axios.get("http://localhost:4000/training");
+      console.log(res.data)
+      setTraining(res.data.filter((data) => data.category === "Free"));
+      } catch (error) {
+        console.log(error)
+      }
+    };
+    getTraing();
+  }, []);                                                                 //added till here
+    // const filterData = list.filter((data) => data.category === "Free"); //removing this as we are getting data from backend
     var settings = {
       dots: true,
       infinite: false,
@@ -51,7 +65,7 @@ function FreeTraining( {item}) {
     
     <div>
     <Slider {...settings}>
-       {filterData.map((item)=>(
+       {training.map((item)=>(
         <Products item={item} key={item.id} />
        ))}
       </Slider>
