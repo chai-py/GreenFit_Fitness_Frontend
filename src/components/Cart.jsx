@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { loadStripe } from '@stripe/stripe-js';
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { loadStripe } from "@stripe/stripe-js";
 
 // Load Stripe with your publishable key
-const stripePromise = loadStripe('pk_test_51QTf99Kj2nWGPj5752AjxmEah8N598npWqZIdjnkWWUATUt6yrRGu8f6LyzY4TZc6MnUGJX3bbN7wuowDA42CpVj00dvNQtzfJ');
+const stripePromise = loadStripe(
+  "pk_test_51QTf99Kj2nWGPj5752AjxmEah8N598npWqZIdjnkWWUATUt6yrRGu8f6LyzY4TZc6MnUGJX3bbN7wuowDA42CpVj00dvNQtzfJ"
+);
 
 const Cart = ({ cart, setCart }) => {
   const [loading, setLoading] = useState(false);
@@ -24,13 +26,16 @@ const Cart = ({ cart, setCart }) => {
       setLoading(true);
 
       // Call backend to create checkout session and get session ID
-      const response = await fetch('http://localhost:4000/create-checkout-session', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ cart }), // Send the cart to the backend
-      });
+      const response = await fetch(
+        "https://greenfit-fitness-backend.onrender.com/create-checkout-session",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ cart }), // Send the cart to the backend
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Failed to create checkout session");
@@ -60,13 +65,17 @@ const Cart = ({ cart, setCart }) => {
     <div>
       {/* Heading and Welcome message */}
       <div className="container mx-auto my-16 px-4 text-center bg-gradient-to-r from-green-500 via-blue-500 to-purple-600 text-white p-10 rounded-lg shadow-lg">
-        <h1 className="text-4xl font-extrabold mb-4 text-shadow-md">Welcome Aboard!</h1>
+        <h1 className="text-4xl font-extrabold mb-4 text-shadow-md">
+          Welcome Aboard!
+        </h1>
         <p className="text-lg mb-6">
-          We are excited to have you with us. You're just a few steps away from completing your purchase.
-          Go ahead and proceed to checkout to grab the best courses we offer!
+          We are excited to have you with us. You're just a few steps away from
+          completing your purchase. Go ahead and proceed to checkout to grab the
+          best courses we offer!
         </p>
         <p className="text-md italic mb-6">
-          All trainings provided here are digital trainings. Once you sign up, you will receive a confirmation email.
+          All trainings provided here are digital trainings. Once you sign up,
+          you will receive a confirmation email.
         </p>
       </div>
 
@@ -83,7 +92,7 @@ const Cart = ({ cart, setCart }) => {
           cart.map((product, index) => (
             <div
               className="card mb-5 my-6 flex flex-row items-center shadow-lg rounded-lg"
-              style={{ maxWidth: '800px' }}
+              style={{ maxWidth: "800px" }}
               key={index}
             >
               {/* Image */}
@@ -98,7 +107,9 @@ const Cart = ({ cart, setCart }) => {
               {/* Product details */}
               <div className="flex flex-col justify-center w-3/4 pl-6 py-3">
                 <h5 className="text-lg font-semibold mb-2">{product.title}</h5>
-                <p className="text-gray-700 text-sm mb-4">{product.description}</p>
+                <p className="text-gray-700 text-sm mb-4">
+                  {product.description}
+                </p>
                 <button className="btn bg-green-600 text-white px-4 py-2 rounded-md hover:bg-gradient-to-r hover:from-green-500 hover:to-blue-500 transition duration-300 mb-3">
                   {product.price} $
                 </button>
@@ -113,7 +124,9 @@ const Cart = ({ cart, setCart }) => {
         <div className="container text-center my-5">
           {/* Display Total Amount */}
           <div className="mb-4">
-            <h2 className="text-xl font-semibold">Total: ${calculateTotal()}</h2>
+            <h2 className="text-xl font-semibold">
+              Total: ${calculateTotal()}
+            </h2>
           </div>
 
           {/* Checkout Button */}
@@ -129,7 +142,7 @@ const Cart = ({ cart, setCart }) => {
                 aria-hidden="true"
               ></span>
             ) : (
-              'Checkout with Stripe'
+              "Checkout with Stripe"
             )}
           </button>
 

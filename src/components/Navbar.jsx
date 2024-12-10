@@ -61,7 +61,7 @@ function Navbar() {
   const handleLogout = () => {
     localStorage.removeItem('auth_token'); // Remove the auth token
     localStorage.removeItem('user'); // Remove user info if stored
-    navigate('/signin'); // Redirect to sign-in page
+    navigate('/'); // Redirect to sign-in page
   };
 
   // NavBar JSX structure

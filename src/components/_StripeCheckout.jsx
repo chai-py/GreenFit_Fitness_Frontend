@@ -1,23 +1,25 @@
-import React, { useState, useEffect } from 'react';
-import { loadStripe } from '@stripe/stripe-js';
-import axios from 'axios'; // Import Axios
+import React, { useState, useEffect } from "react";
+import { loadStripe } from "@stripe/stripe-js";
+import axios from "axios"; // Import Axios
 
-const stripePromise = loadStripe('pk_test_51QTf99Kj2nWGPj5752AjxmEah8N598npWqZIdjnkWWUATUt6yrRGu8f6LyzY4TZc6MnUGJX3bbN7wuowDA42CpVj00dvNQtzfJ'); // Replace with your Stripe Publishable Key
+const stripePromise = loadStripe(
+  "pk_test_51QTf99Kj2nWGPj5752AjxmEah8N598npWqZIdjnkWWUATUt6yrRGu8f6LyzY4TZc6MnUGJX3bbN7wuowDA42CpVj00dvNQtzfJ"
+); // Replace with your Stripe Publishable Key
 
 const StripeCheckout = ({ cart, total }) => {
-  const [loading, setLoading] = useState(false);  // Track loading state
-  const [checkoutError, setCheckoutError] = useState(null);  // Track any errors during checkout
+  const [loading, setLoading] = useState(false); // Track loading state
+  const [checkoutError, setCheckoutError] = useState(null); // Track any errors during checkout
 
   // Function to handle checkout session creation
   const handleCheckout = async () => {
     try {
-      setLoading(true);  // Set loading state to true when starting checkout
-      setCheckoutError(null);  // Clear previous errors if any
+      setLoading(true); // Set loading state to true when starting checkout
+      setCheckoutError(null); // Clear previous errors if any
 
       // Prepare the line items from the cart
       const lineItems = cart.map((product) => ({
         price_data: {
-          currency: 'usd',
+          currency: "usd",
           product_data: {
             name: product.title,
             description: product.description,
@@ -30,13 +32,13 @@ const StripeCheckout = ({ cart, total }) => {
 
       // Send the line items to the backend to create the checkout session
       const response = await axios.post(
-        'http://localhost:4000/create-payment-intent',
+        "https://greenfit-fitness-backend.onrender.com/create-payment-intent",
         { lineItems },
-        { headers: { 'Content-Type': 'application/json' } }
+        { headers: { "Content-Type": "application/json" } }
       );
 
       if (response.data && response.data.id) {
-        const { id } = response.data;  // Get the session ID from the backend
+        const { id } = response.data; // Get the session ID from the backend
 
         const stripe = await stripePromise; // Load the Stripe instance
 
@@ -46,17 +48,17 @@ const StripeCheckout = ({ cart, total }) => {
         });
 
         if (error) {
-          console.error('Stripe Checkout error:', error);
-          setCheckoutError(error.message);  // Set error message state
+          console.error("Stripe Checkout error:", error);
+          setCheckoutError(error.message); // Set error message state
         }
       } else {
-        throw new Error('Failed to create checkout session');
+        throw new Error("Failed to create checkout session");
       }
     } catch (error) {
-      console.error('Error creating checkout session:', error);
-      setCheckoutError(error.message);  // Set error message state
+      console.error("Error creating checkout session:", error);
+      setCheckoutError(error.message); // Set error message state
     } finally {
-      setLoading(false);  // Set loading state to false once the process is complete
+      setLoading(false); // Set loading state to false once the process is complete
     }
   };
 
@@ -66,12 +68,12 @@ const StripeCheckout = ({ cart, total }) => {
 
       {checkoutError && (
         <div className="error-message">
-          <p style={{ color: 'red' }}>Error: {checkoutError}</p>
+          <p style={{ color: "red" }}>Error: {checkoutError}</p>
         </div>
       )}
 
       {loading ? (
-        <p>Loading payment details...</p>  // Show loading state until session is created
+        <p>Loading payment details...</p> // Show loading state until session is created
       ) : (
         <button
           onClick={handleCheckout}
@@ -129,7 +131,7 @@ export default StripeCheckout;
 
 //       // Send line items to the backend to create a checkout session
 //       const response = await axios.post(
-//         'http://localhost:4000/create-payment-intent',
+//         'https://greenfit-fitness-backend.onrender.com/create-payment-intent',
 //         { lineItems },
 //         { headers: { 'Content-Type': 'application/json' } }
 //       );

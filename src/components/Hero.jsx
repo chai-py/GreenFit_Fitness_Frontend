@@ -1,7 +1,15 @@
-import React from 'react'
-import HeroImg from '../../public/gym.jpg'
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+// import HeroImg from '../../public/gym.jpg'
 
 function Hero() {
+  const [email, setEmail] = useState('');
+  const navigate = useNavigate();
+
+  const handleJoinClick = () => {
+    // Redirect to the signup page and pass the email via state
+    navigate('/signup', { state: { email } });
+  };
   return (
     <>
     <div className=' max-w-screen-2xl container mx-auto md:px-20 px-4 flex flex-col md:flex-row my-20 space-x-6'>
@@ -25,14 +33,24 @@ function Hero() {
             <path
             d="M15 6.954 8.978 9.86a2.25 2.25 0 0 1-1.956 0L1 6.954V11.5A1.5 1.5 0 0 0 2.5 13h11a1.5 1.5 0 0 0 1.5-1.5V6.954Z" />
         </svg>
-        <input type="text" className="grow" placeholder="Email" />
-        </label>
-
-       </div>
-       <button className="btn mt-6 bg-green-500 text-white hover:bg-green-700 transition duration-300">Join Us</button>
+        <input
+              type="text"
+              className="grow"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)} // Update the email state
+            />
+          </label>
+        </div>
+        <button
+          className="btn mt-6 bg-green-500 text-white hover:bg-green-700 transition duration-300"
+          onClick={handleJoinClick} // Trigger the navigation on button click
+        >
+          Join Us
+        </button>
       </div>
       <div className='order-1 w-full md:w-1/2 mt-12 md:mt-0'>
-        <img src={HeroImg} className='mb-8 md:mb-0' alt="Hero Image" />
+        <img src="https://images.pexels.com/photos/1954524/pexels-photo-1954524.jpeg" className='mb-8 md:mb-0' alt="Hero Image" />
       </div>
     </div>
     </>
