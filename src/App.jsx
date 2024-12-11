@@ -44,7 +44,7 @@ function App() {
         <Route path="/training" element={<Training addItemToCart={addItemToCart} />} />
         <Route path="/training/:id" element={<ProductDetails addItemToCart={addItemToCart} />} />
         <Route path="/cart" element={<Cart cart={cart} />} />
-        <Route path="/" element={<SuccessPage />} />
+        <Route path="/success" element={<SuccessPage />} />
         <Route path="/product/:id" element={<ProductDetails />} />
       </Routes>
       {/* </AuthProvider> */}
