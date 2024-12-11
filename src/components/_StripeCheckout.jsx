@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios"; // Import Axios
+import { urls } from "../constants";
 
 const stripePromise = loadStripe(
   "pk_test_51QTf99Kj2nWGPj5752AjxmEah8N598npWqZIdjnkWWUATUt6yrRGu8f6LyzY4TZc6MnUGJX3bbN7wuowDA42CpVj00dvNQtzfJ"
@@ -32,7 +33,7 @@ const StripeCheckout = ({ cart, total }) => {
 
       // Send the line items to the backend to create the checkout session
       const response = await axios.post(
-        "https://greenfit-fitness-backend.onrender.com/create-payment-intent",
+        `${urls.url}/create-payment-intent`,
         { lineItems },
         { headers: { "Content-Type": "application/json" } }
       );
@@ -131,7 +132,7 @@ export default StripeCheckout;
 
 //       // Send line items to the backend to create a checkout session
 //       const response = await axios.post(
-//         'https://greenfit-fitness-backend.onrender.com/create-payment-intent',
+//         `${urls.url}/create-payment-intent`,
 //         { lineItems },
 //         { headers: { 'Content-Type': 'application/json' } }
 //       );

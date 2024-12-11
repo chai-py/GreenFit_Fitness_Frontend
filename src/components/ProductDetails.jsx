@@ -1,71 +1,16 @@
-// import React, { useEffect, useState } from 'react';
-// import { useParams } from 'react-router-dom'; // Import useParams to get the product ID from the URL
-// import axios from 'axios';
-
-// function ProductDetails({ addItemToCart }) {
-//   const { id } = useParams();  // Get the ID from the URL
-//   const [product, setProduct] = useState(null);
-
-//   useEffect(() => {
-//     const getProductDetails = async () => {
-//       try {
-//         const res = await axios.get(`https://greenfit-fitness-backend.onrender.com/training/${id}`);
-//         setProduct(res.data);
-//       } catch (error) {
-//         console.log('Error fetching product details:', error);
-//       }
-//     };
-//     getProductDetails();
-//   }, [id]);
-
-//   if (!product) return <div>Loading...</div>;
-
-//   const handleAddToCart = () => {
-//     // Call the addItemToCart function, passing the product to add it to the cart
-//     addItemToCart(product.name, product.price, product.category, product.image, product.title);
-//   };
-
-//   return (
-//     <div className="max-w-screen-lg mx-auto p-4 mt-16">
-//       <h1 className="text-3xl font-bold">{product.title}</h1>
-//       <img src={product.image} alt={product.title} className="w-full h-80 object-cover mt-4" />
-//       <p className="mt-4">{product.description}</p>
-//       <p className="text-xl mt-4">Price: ${product.price}</p>
-
-//       {/* Add to Cart Button */}
-//       <button
-//         onClick={handleAddToCart}
-//         className="mt-6 text-white px-4 py-2 rounded
-//         bg-green-600
-//         transition-all transform duration-200
-//         hover:bg-gradient-to-r hover:from-green-500 hover:to-green-700
-//         active:scale-95"
-//       >
-//         Add to Cart
-//       </button>
-
-//     </div>
-
-//   );
-// }
-
-// export default ProductDetails;
-
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom"; // Import useNavigate for redirection
+import { useParams } from "react-router-dom"; // Import useParams to get the product ID from the URL
 import axios from "axios";
+import { urls } from "../constants";
 
 function ProductDetails({ addItemToCart }) {
   const { id } = useParams(); // Get the ID from the URL
-  const navigate = useNavigate(); // For redirection to the Trainings page
   const [product, setProduct] = useState(null);
 
   useEffect(() => {
     const getProductDetails = async () => {
       try {
-        const res = await axios.get(
-          `https://greenfit-fitness-backend.onrender.com/training/${id}`
-        );
+        const res = await axios.get(`${urls.url}/training/${id}`);
         setProduct(res.data);
       } catch (error) {
         console.log("Error fetching product details:", error);
@@ -87,11 +32,6 @@ function ProductDetails({ addItemToCart }) {
     );
   };
 
-  const handleAddMoreTrainings = () => {
-    // Redirect to the Trainings page
-    navigate("/trainings");
-  };
-
   return (
     <div className="max-w-screen-lg mx-auto p-4 mt-16">
       <h1 className="text-3xl font-bold text-center">{product.title}</h1>
@@ -110,12 +50,9 @@ function ProductDetails({ addItemToCart }) {
           Add to Cart
         </button>
 
-        {/* Add More Trainings Button */}
-        <button
-          onClick={handleAddMoreTrainings}
-          className="text-white px-6 py-2 rounded bg-blue-600 hover:bg-gradient-to-r hover:from-blue-500 hover:to-blue-700 transition-all transform duration-200"
-        >
-          Add More Trainings
+        {/* Price Gradient Button */}
+        <button className="text-white px-6 py-2 rounded bg-gradient-to-r from-purple-500 to-pink-500 transition-all transform duration-200 cursor-default">
+          Price: ${product.price}
         </button>
       </div>
 

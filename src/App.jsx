@@ -11,7 +11,8 @@ import ProductDetails from './components/ProductDetails';
 // import { AuthProvider } from './components/AuthContext';
 import SignIn from './components/SignIn';
 import ContactUs from './components/Contact';
-// import PrivateRoute from './components/PrivateRoute';
+import ProtectedRoute from './components/ProtectedRoute';
+
 
 
 
@@ -41,12 +42,13 @@ function App() {
         <Route path="/signin" element={<SignIn />} />
         <Route path="/" element={<Home />} />
         <Route path="/contact" element={<ContactUs />} />
-        <Route path="/training" element={<Training addItemToCart={addItemToCart} />} />
+        {/* <Route path="/training" element={<Training addItemToCart={addItemToCart} />} /> */}
         <Route path="/training/:id" element={<ProductDetails addItemToCart={addItemToCart} />} />
         <Route path="/cart" element={<Cart cart={cart} />} />
         <Route path="/success" element={<SuccessPage />} />
         <Route path="/product/:id" element={<ProductDetails />} />
-      </Routes>
+        <Route path="/training" element={<ProtectedRoute element={Training} />} />
+    </Routes>
       {/* </AuthProvider> */}
     </>
   );

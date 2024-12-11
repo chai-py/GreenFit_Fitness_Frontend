@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { loadStripe } from "@stripe/stripe-js";
+import { urls } from "../constants";
 
 // Load Stripe with your publishable key
 const stripePromise = loadStripe(
@@ -26,16 +27,13 @@ const Cart = ({ cart, setCart }) => {
       setLoading(true);
 
       // Call backend to create checkout session and get session ID
-      const response = await fetch(
-        "https://greenfit-fitness-backend.onrender.com/create-checkout-session",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ cart }), // Send the cart to the backend
-        }
-      );
+      const response = await fetch(`${urls.url}/create-checkout-session`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ cart }), // Send the cart to the backend
+      });
 
       if (!response.ok) {
         throw new Error("Failed to create checkout session");

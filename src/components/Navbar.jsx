@@ -49,6 +49,7 @@ function Navbar() {
 
   // Update cart in localStorage whenever cart changes
   useEffect(() => {
+    console.log("Cart length:", cart.length);
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
 
@@ -114,7 +115,7 @@ function Navbar() {
             className="bg-gray-800 text-white px-3 py-2 rounded-md hover:bg-gray-700 duration-300 cursor-pointer flex items-center gap-2"
           >
             <ShoppingCartIcon className="h-6 w-6 text-white" />
-            <span className="text-sm"> ({cart.length})</span> {/* Show cart count */}
+            {/* <span className="text-sm"> ({cart.length})</span> Show cart count */}
           </Link>
         </div>
 

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios"; // Import axios for API calls
+import { urls } from "../constants";
 
 function SignUp() {
   const {
@@ -28,14 +29,11 @@ function SignUp() {
       console.log(data); // Log the form data to check
 
       // Make the API request to sign up the user
-      const response = await axios.post(
-        "https://greenfit-fitness-backend.onrender.com/user/signup",
-        {
-          username: data.username, // Include the username field
-          email: data.email,
-          password: data.password,
-        }
-      );
+      const response = await axios.post(`${urls.url}/user/signup`, {
+        username: data.username, // Include the username field
+        email: data.email,
+        password: data.password,
+      });
 
       // Redirect user to the Sign In page after successful sign up
       navigate("/signin");

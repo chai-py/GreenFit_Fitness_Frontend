@@ -1,5 +1,6 @@
 import React, { createContext, useState, useEffect } from "react";
 import axios from "axios";
+import { urls } from "../constants";
 
 // Create the AuthContext
 export const AuthContext = createContext();
@@ -13,10 +14,9 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const checkUserSession = async () => {
       try {
-        const res = await axios.get(
-          "https://greenfit-fitness-backend.onrender.com/auth/check-session",
-          { withCredentials: true }
-        );
+        const res = await axios.get(`${urls.url}/auth/check-session`, {
+          withCredentials: true,
+        });
         if (res.data.user) {
           setUser(res.data.user); // If session is valid, set the user
         }

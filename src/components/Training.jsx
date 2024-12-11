@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Products from "../components/products";
 import axios from "axios";
+import { urls } from "../constants";
 
 function Training({ addItemToCart }) {
   const [training, setTraining] = useState([]); // To store training data
@@ -11,7 +12,7 @@ function Training({ addItemToCart }) {
     const getTraining = async () => {
       try {
         const res = await axios.get(
-          "https://greenfit-fitness-backend.onrender.com/training"
+          `${urls.url}/training` //https://greenfit-fitness-backend.onrender.com
         );
         console.log(res.data);
         setTraining(res.data);

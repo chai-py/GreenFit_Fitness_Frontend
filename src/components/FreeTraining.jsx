@@ -5,6 +5,7 @@ import Slider from "react-slick";
 import Products from "./products";
 import axios from "axios";
 import { Link } from "react-router-dom"; // Import Link component from react-router-dom
+import { urls } from "../constants";
 
 function FreeTraining({ addItemToCart }) {
   const [training, setTraining] = useState([]);
@@ -12,9 +13,7 @@ function FreeTraining({ addItemToCart }) {
   useEffect(() => {
     const getTraining = async () => {
       try {
-        const res = await axios.get(
-          "https://greenfit-fitness-backend.onrender.com/training"
-        );
+        const res = await axios.get(`${urls.url}/training`);
         console.log(res.data);
         setTraining(res.data.filter((data) => data.category === "Free"));
       } catch (error) {

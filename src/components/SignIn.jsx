@@ -2,6 +2,7 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios"; // Import axios for API calls
+import { urls } from "../constants";
 
 function SignIn({ closeModal }) {
   const {
@@ -16,13 +17,10 @@ function SignIn({ closeModal }) {
 
     // Make the API request to log in the user
     try {
-      const response = await axios.post(
-        "https://greenfit-fitness-backend.onrender.com/user/login",
-        {
-          email: data.email,
-          password: data.password,
-        }
-      );
+      const response = await axios.post(`${urls.url}/user/login`, {
+        email: data.email,
+        password: data.password,
+      });
 
       // If login is successful, save the token and user info to localStorage
       const { token, user } = response.data;
