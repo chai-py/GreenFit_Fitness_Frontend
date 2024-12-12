@@ -12,6 +12,7 @@ import ProductDetails from './components/ProductDetails';
 import SignIn from './components/SignIn';
 import ContactUs from './components/Contact';
 import ProtectedRoute from './components/ProtectedRoute';
+import TrainingForm from './components/TrainingForm';
 
 
 
@@ -24,6 +25,7 @@ function App() {
     const obj = { name, price, category, image, title };
     setCart((prevCart) => {
       console.log('Previous Cart:', prevCart); // Log previous state
+      alert('item added in cart')
       return [...prevCart, obj]; // Add the new item to the cart
     });
   };
@@ -47,6 +49,7 @@ function App() {
         <Route path="/cart" element={<Cart cart={cart} />} />
         <Route path="/success" element={<SuccessPage />} />
         <Route path="/product/:id" element={<ProductDetails />} />
+        <Route path="/trainingform" element={<TrainingForm />} />
         {/* <Route path="/training" element={<ProtectedRoute element={Training} />} /> */}
     </Routes>
       {/* </AuthProvider> */}
