@@ -71,8 +71,9 @@ function Navbar() {
     <>
       <li><a href="/">Home</a></li>
       <li><a href="/training">Training</a></li>
-      <li><a href="/contact">Contact</a></li>
-      {/* <li><a href="#">About</a></li> */}
+      <li><a href="/contact">Contact</a></li> 
+      <li><a href="/trainingform">Admin</a></li>
+      {/* <li><a href="#">About</a></li>*/}
     </>
   );
 
