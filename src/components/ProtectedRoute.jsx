@@ -2,7 +2,7 @@ import React from 'react';
 import { Navigate } from 'react-router-dom';
 
 const ProtectedRoute = ({ element: Component, ...props }) => {
-  const token = localStorage.getItem('token'); // Check if token exists in localStorage
+  const token = localStorage.getItem('auth_token'); // Check if token exists in localStorage
 
   // If token is missing, redirect to login page
   if (!token) {
