@@ -41,6 +41,8 @@ function SignUp() {
 
       localStorage.setItem('user', JSON.stringify(userData));
 
+      const token = localStorage.getItem('token');
+
       // Redirect user to the Sign In page after successful sign up
       navigate("/signin");
     } catch (error) {
