@@ -28,6 +28,8 @@ function SignUp() {
     try {
       console.log(data); // Log the form data to check
 
+      const role = data.role || 'user';
+
       // Make the API request to sign up the user
       const response = await axios.post(`${urls.url}/user/signup`, {
         username: data.username, // Include the username field
