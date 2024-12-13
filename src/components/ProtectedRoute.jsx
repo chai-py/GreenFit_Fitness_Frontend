@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 
 const ProtectedRoute = ({ element: Component, ...props }) => {
   const token = localStorage.getItem('auth_token'); // Check if token exists in localStorage
