@@ -50,7 +50,7 @@ function App() {
         <Route path="/success" element={<SuccessPage />} />
         <Route path="/product/:id" element={<ProductDetails />} />
         <Route path="/trainingform" element={<TrainingForm />} />
-        <Route path="/training" element={<ProtectedRoute element={Training} />} />
+        <Route path="/training/*" element={<ProtectedRoute element={Training} />} />
     </Routes>
       {/* </AuthProvider> */}
     </>
