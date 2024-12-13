@@ -6,11 +6,11 @@ const ProtectedRoute = ({ element: Component, ...props }) => {
 
   // If token is missing, redirect to login page
   if (!token) {
-    return <Navigate to="/signin" />;
+    return <Navigate to="/signin" replace />;
   }
 
   // If token exists, render the provided component with props
-  return <Component {...props} />;
+  return <Outlet />;
 };
 
 export default ProtectedRoute;
