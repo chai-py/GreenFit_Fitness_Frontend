@@ -33,7 +33,7 @@ function SignUp() {
         username: data.username, // Include the username field
         email: data.email,
         password: data.password,
-        role: user.role, // Save the role
+        role: role, // Save the role
         token: token, // Store the token
       });
 
