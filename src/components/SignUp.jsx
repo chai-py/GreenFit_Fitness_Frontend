@@ -33,7 +33,11 @@ function SignUp() {
         username: data.username, // Include the username field
         email: data.email,
         password: data.password,
+        role: user.role, // Save the role
+        token: token, // Store the token
       });
+
+      localStorage.setItem('user', JSON.stringify(userData));
 
       // Redirect user to the Sign In page after successful sign up
       navigate("/signin");

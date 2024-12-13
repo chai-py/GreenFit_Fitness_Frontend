@@ -4,6 +4,7 @@ import { Navigate, Outlet } from 'react-router-dom';
 
 const ProtectedRoute = ({ element: Component, ...props }) => {
   const token = localStorage.getItem('auth_token'); // Check if token exists in localStorage
+  const user = JSON.parse(localStorage.getItem('user'))
 
   // If token is missing, redirect to login page
   if (!token) {
@@ -13,7 +14,7 @@ const ProtectedRoute = ({ element: Component, ...props }) => {
   const decodedToken = JSON.parse(atob(token.split('.')[1])); // Decode the JWT token
   const userRole = decodedToken?.role; // Extract role from decoded token
 
-  if (userRole !== 'admin') {
+  if (!user || user.role !== 'admin') {
     return <Navigate to="/not-authorized" replace />;
   }
 
