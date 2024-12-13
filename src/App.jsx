@@ -44,13 +44,17 @@ function App() {
         <Route path="/signin" element={<SignIn />} />
         <Route path="/" element={<Home />} />
         <Route path="/contact" element={<ContactUs />} />
-        <Route path="/training" element={<Training addItemToCart={addItemToCart} />} />
+        {/* <Route path="/training" element={<Training addItemToCart={addItemToCart} />} /> */}
         <Route path="/training/:id" element={<ProductDetails addItemToCart={addItemToCart} />} />
         <Route path="/cart" element={<Cart cart={cart} />} />
         <Route path="/success" element={<SuccessPage />} />
         <Route path="/product/:id" element={<ProductDetails />} />
         <Route path="/trainingform" element={<TrainingForm />} />
-        <Route path="/training" element={<ProtectedRoute element={Training} />} />
+        {/* <Route path="/training" element={<ProtectedRoute element={Training} />} /> */}
+        <Route
+          path="/training"
+          element={<ProtectedRoute element={<Training addItemToCart={addItemToCart} />} />}
+        />
     </Routes>
       {/* </AuthProvider> */}
     </>
