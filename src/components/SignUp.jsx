@@ -30,6 +30,8 @@ function SignUp() {
 
       const role = data.role || 'user';
 
+      const token = localStorage.getItem('token');
+
       // Make the API request to sign up the user
       const response = await axios.post(`${urls.url}/user/signup`, {
         username: data.username, // Include the username field
@@ -41,7 +43,7 @@ function SignUp() {
 
       localStorage.setItem('user', JSON.stringify(userData));
 
-      const token = localStorage.getItem('token');
+    
 
       // Redirect user to the Sign In page after successful sign up
       navigate("/signin");
