@@ -26,6 +26,7 @@ function SignIn({ closeModal }) {
       const { token, user } = response.data;
       localStorage.setItem("auth_token", token); // Store JWT token
       localStorage.setItem("user", JSON.stringify(user)); // Store user info
+      localStorage.setItem('role', user.role);
 
       // If login is successful, close the modal and navigate to the dashboard or home page
       if (closeModal) {

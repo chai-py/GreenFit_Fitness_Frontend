@@ -50,7 +50,10 @@ function App() {
         <Route path="/cart" element={<Cart cart={cart} />} />
         <Route path="/success" element={<SuccessPage />} />
         <Route path="/product/:id" element={<ProductDetails />} />
-        <Route path="/trainingform" element={<TrainingForm />} />
+        {/* <Route path="/trainingform" element={<TrainingForm />} /> */}
+        <Route path="/trainingform" element={<ProtectedRoute />}>
+        <Route path="" element={<TrainingForm />} />
+      </Route>
        
     </Routes>
       {/* </AuthProvider> */}
