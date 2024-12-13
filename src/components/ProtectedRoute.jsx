@@ -15,7 +15,8 @@ const ProtectedRoute = ({ element: Component, ...props }) => {
   const userRole = decodedToken?.role; // Extract role from decoded token
 
   if (!user || user.role !== 'admin') {
-    return <Navigate to="/not-authorized" replace />;
+    alert('Not authorized user')
+    return <Navigate to="/" replace />;
   }
 
   // If token exists, render the provided component with props
