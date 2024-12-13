@@ -41,10 +41,15 @@ function SignUp() {
         token: token, // Store the token
       });
 
+      const userData = {
+        username: data.username,
+        email: data.email,
+        role: role,  // Include role if needed
+      };
+
       localStorage.setItem('user', JSON.stringify(userData));
 
     
-
       // Redirect user to the Sign In page after successful sign up
       navigate("/signin");
     } catch (error) {
