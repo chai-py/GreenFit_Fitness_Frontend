@@ -26,10 +26,10 @@ function ProductDetails({ addItemToCart }) {
    // If still loading, show loading state
    if (isLoading) {
     return (
-      <div className="flex justify-center items-center min-h-screen bg-gray-100">
+      <div className="flex justify-center items-center min-h-screen bg-gray-100 dark:bg-gray-900">
         <div className="text-center">
           <div className="loader-border animate-spin rounded-full border-t-4 border-b-4 border-green-600 w-16 h-16 mx-auto mb-4"></div>
-          <p className="text-xl text-green-600">Loading product details...</p>
+          <p className="text-xl text-green-600 dark:text-green-400">Loading product details...</p>
         </div>
       </div>
     );
@@ -47,7 +47,7 @@ function ProductDetails({ addItemToCart }) {
   };
 
   return (
-    <div className="max-w-screen-lg mx-auto p-4 mt-16">
+    <div className="max-w-screen-lg mx-auto p-4 mt-16 bg-gray-100 dark:bg-gray-900 dark:text-gray-300">
       <h1 className="text-3xl font-bold text-center">{product.title}</h1>
       <img
         src={product.image}
@@ -71,8 +71,8 @@ function ProductDetails({ addItemToCart }) {
       </div>
 
       {/* Batch Information */}
-      <div className="mt-6 p-4 border rounded-lg bg-gray-100">
-        <h2 className="text-2xl font-semibold text-green-600">
+      <div className="mt-6 p-4 border rounded-lg bg-gray-100 dark:bg-gray-800">
+        <h2 className="text-2xl font-semibold text-green-600 dark:text-green-400">
           Batch Information
         </h2>
         <p>
@@ -98,8 +98,8 @@ function ProductDetails({ addItemToCart }) {
       </div>
 
       {/* Benefits Section */}
-      <div className="mt-6 p-4 border rounded-lg bg-gray-100">
-        <h2 className="text-2xl font-semibold text-green-600">Benefits</h2>
+      <div className="mt-6 p-4 border rounded-lg bg-gray-100 dark:bg-gray-800">
+        <h2 className="text-2xl font-semibold text-green-600 dark:text-green-400">Benefits</h2>
         <ul className="list-disc ml-6 mt-2">
           <li>
             <strong>Strength:</strong> {product.benefits?.strength}
