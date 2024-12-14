@@ -73,6 +73,12 @@ const TrainingForm = ({ initialData = null, onSubmit }) => {
         Authorization: `Bearer ${token}`,
       };
 
+      const userRole = localStorage.getItem("role");                     //userrole is check if needed
+      if (userRole !== "admin") {
+        alert('You do not have permission to perform this action.');
+        return;
+      }
+  
     
       if (action === 'create') {
         const response = await axios.post(`${urls.url}/training`, data, { headers });
