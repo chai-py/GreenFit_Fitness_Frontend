@@ -51,17 +51,11 @@ function App() {
         <Route path="/success" element={<SuccessPage />} />
         <Route path="/product/:id" element={<ProductDetails />} />
         {/* <Route path="/trainingform" element={<TrainingForm />} /> */}
+        <Route path="/trainingform" element={<ProtectedRoute><TrainingForm /></ProtectedRoute>} />
         {/* <Route path="/trainingform" element={<ProtectedRoute />}>
         <Route path="" element={<TrainingForm />} />
       </Route> */}
-      <Route
-  path="/trainingform"
-  element={
-    <ProtectedRoute>
-      <TrainingForm />
-    </ProtectedRoute>
-  }
-/>
+
        
     </Routes>
       {/* </AuthProvider> */}
