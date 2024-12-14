@@ -40,6 +40,25 @@ function App() {
       <Navbar cart={cart} setCart={setCart} />
       {/* <AuthProvider> */}
       <Routes>
+         {/* Protecting /training/:id route for authenticated users */}
+         <Route
+          path="/training/:id"
+          element={
+            <ProtectedRoute>
+              <ProductDetails addItemToCart={addItemToCart} />
+            </ProtectedRoute>
+          }
+        />
+        
+        {/* Protecting /trainingform route for admin users only */}
+        <Route
+          path="/trainingform"
+          element={
+            <ProtectedRoute adminOnly={true}>
+              <TrainingForm />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/SignUp" element={<SignUp key="signup" />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/" element={<Home />} />
@@ -51,7 +70,7 @@ function App() {
         <Route path="/success" element={<SuccessPage />} />
         <Route path="/product/:id" element={<ProductDetails />} />
         {/* <Route path="/trainingform" element={<TrainingForm />} /> */}
-        <Route path="/trainingform" element={<ProtectedRoute><TrainingForm /></ProtectedRoute>} />
+        {/* <Route path="/trainingform" element={<ProtectedRoute><TrainingForm /></ProtectedRoute>} /> */}
         {/* <Route path="/trainingform" element={<ProtectedRoute />}>
         <Route path="" element={<TrainingForm />} />
       </Route> */}
