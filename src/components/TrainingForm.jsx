@@ -61,8 +61,21 @@ const TrainingForm = ({ initialData = null, onSubmit }) => {
     const { action, id, ...data } = formData;
 
     try {
+      // Retrieve the token from localStorage
+      const token = localStorage.getItem('auth_token'); // Adjust based on your actual token storage
+      if (!token) {
+        alert('You must be logged in to submit the form.');
+        return;
+      }
+
+      // Set up the headers to include the Authorization token
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
+
+    
       if (action === 'create') {
-         const response = await axios.post(`${urls.url}/training`, data);
+        const response = await axios.post(`${urls.url}/training`, data, { headers });
         alert('Training created successfully!');
         console.log(response.data);
       } else if (action === 'update') {
@@ -70,7 +83,7 @@ const TrainingForm = ({ initialData = null, onSubmit }) => {
           alert('ID is required for updating training!');
           return;
         }
-        const response = await axios.put(`${urls.url}/training/${id}`, data);
+        const response = await axios.put(`${urls.url}/training/${id}`, data, { headers });
         alert('Training updated successfully!');
         console.log(response.data);
       } else if (action === 'delete') {
@@ -78,7 +91,7 @@ const TrainingForm = ({ initialData = null, onSubmit }) => {
           alert('ID is required for deleting training!');
           return;
         }
-        const response = await axios.delete(`${urls.url}/training/${id}`);
+        const response = await axios.delete(`${urls.url}/training/${id}`, { headers });
         alert('Training deleted successfully!');
         console.log(response.data);
       }
