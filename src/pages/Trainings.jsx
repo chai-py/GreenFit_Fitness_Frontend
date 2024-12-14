@@ -7,7 +7,7 @@ function Trainings() {
   return (
     <>
     <div>
-      <Navbar/>
+    <Navbar/>
     <div className=' min-h-screen'>
       <Training/>
     </div>

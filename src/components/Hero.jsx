@@ -49,8 +49,8 @@ function Hero() {
           Join Us
         </button>
       </div>
-      <div className='order-1 w-full md:w-1/2 mt-12 md:mt-0'>
-        <img src="https://greenfit.s3.us-east-1.amazonaws.com/Hero+Image.jpeg" className='mb-8 md:mb-0' alt="Hero Image" />
+      <div className="order-1 w-full md:w-1/2 mt-12 md:mt-0 flex justify-center items-center">
+        <img src="https://greenfit.s3.us-east-1.amazonaws.com/Hero+Image.jpeg"  className="mb-8 md:mb-0 max-w-full h-auto" alt="Hero Image" />
         {/* <img src="https://images.pexels.com/photos/1954524/pexels-photo-1954524.jpeg" className='mb-8 md:mb-0' alt="Hero Image" /> */}
       </div>
     </div>

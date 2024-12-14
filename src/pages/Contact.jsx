@@ -3,7 +3,7 @@ import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import ContactUs from '../components/Contact'
 
-function Trainings() {
+function Contact() {
   return (
     <>
     <div>
@@ -15,4 +15,4 @@ function Trainings() {
   )
 }
 
-export default Trainings
+export default Contact

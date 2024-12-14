@@ -41,7 +41,7 @@ function FreeTraining({ addItemToCart }) {
         },
       },
       {
-        breakpoint: 600,
+        breakpoint: 768,
         settings: {
           slidesToShow: 2,
           slidesToScroll: 2,
@@ -62,7 +62,7 @@ function FreeTraining({ addItemToCart }) {
     <>
       <div className="max-w-screen-2xl container mx-auto md:px-20 px-4">
         <div>
-          <h1 className="font-bold pb-2 text-xl">
+          <h1 className="font-bold pb-2 text-xl text-center sm:text-left">
             Achieve Your Fitness Goals with{" "}
             <span className="text-[#15803D]">Free Training Courses</span>
           </h1>
@@ -72,9 +72,9 @@ function FreeTraining({ addItemToCart }) {
             healthier you!
           </p>
         </div>
-
+        
         <div>
-          <Slider {...settings}>
+          <Slider {...settings} >
             {training.map((item) => (
               <div key={item._id}>
                 <Link to={`/training/${item._id}`}>

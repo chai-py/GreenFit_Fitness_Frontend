@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { urls } from "../constants";
-const userRole = localStorage.getItem("userRole");
 
 const TrainingForm = ({ initialData = null, onSubmit }) => {
   const [formData, setFormData] = useState({
@@ -16,7 +15,7 @@ const TrainingForm = ({ initialData = null, onSubmit }) => {
     batchEndTime: initialData?.batchEndTime || '',
     weeklyClasses: {
       frequency: initialData?.weeklyClasses?.frequency || '',
-      days: initialData?.weeklyClasses?.days || [],
+      days: Array.isArray(initialData?.weeklyClasses?.days) ? initialData?.weeklyClasses?.days : [],
       classDuration: initialData?.weeklyClasses?.classDuration || '',
     },
     benefits: {
@@ -58,28 +57,23 @@ const TrainingForm = ({ initialData = null, onSubmit }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    console.log('Form Data:', formData);
     const { action, id, ...data } = formData;
 
     try {
-      // Retrieve the token from localStorage
-      const token = localStorage.getItem('auth_token'); // Adjust based on your actual token storage
-      if (!token) {
-        alert('You must be logged in to submit the form.');
-        return;
+      const token = localStorage.getItem('auth_token');
+      if (token) {
+        const decoded = JSON.parse(atob(token.split('.')[1])); // Decodes the payload part of the JWT
+        if (decoded.exp < Date.now() / 1000) {
+          alert('Your session has expired. Please log in again.');
+          return;
+        }
       }
 
-      // Set up the headers to include the Authorization token
       const headers = {
         Authorization: `Bearer ${token}`,
       };
 
-      const userRole = localStorage.getItem("role");                     //userrole is check if needed
-      if (userRole !== "admin") {
-        alert('You do not have permission to perform this action.');
-        return;
-      }
-  
-    
       if (action === 'create') {
         const response = await axios.post(`${urls.url}/training`, data, { headers });
         alert('Training created successfully!');
@@ -109,40 +103,27 @@ const TrainingForm = ({ initialData = null, onSubmit }) => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-green-50"> 
-  <div className="max-w-2xl w-full p-6 bg-white rounded-lg shadow-lg training-form-container mt-20">
-    {userRole === 'admin' && (
-      <>
-        <button onClick={() => setFormData({ ...formData, action: 'create' })} className="mr-2 px-4 py-2 bg-green-500 text-white rounded-md">
-          Create Training
-        </button>
-        <button onClick={() => setFormData({ ...formData, action: 'update' })} className="mr-2 px-4 py-2 bg-yellow-500 text-white rounded-md">
-          Edit Training
-        </button>
-        <button onClick={() => setFormData({ ...formData, action: 'delete' })} className="px-4 py-2 bg-red-500 text-white rounded-md">
-          Delete Training
-        </button>
-      </>
-    )}
-    <h2 className="text-3xl font-semibold text-center text-green-600 mb-6">
-      {formData.action === 'create' ? 'Create New Training' : 'Edit/Delete Training'}
-    </h2>
+      <div className="max-w-2xl w-full p-6 bg-white rounded-lg shadow-lg training-form-container mt-20">
+        <h2 className="text-3xl font-semibold text-center text-green-600 mb-6">
+          {formData.action === 'create' ? 'Create New Training' : 'Edit/Delete Training'}
+        </h2>
 
-    <form onSubmit={handleSubmit}>
-      <div className="mb-4">
-        <label className="block text-sm font-medium text-gray-700">Action</label>
-        <select
-          name="action"
-          value={formData.action}
-          onChange={handleChange}
-          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-        >
-          <option value="create">Create</option>
-          <option value="update">Update</option>
-          <option value="delete">Delete</option>
-        </select>
-      </div>
+        <form onSubmit={handleSubmit}>
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700">Action</label>
+            <select
+              name="action"
+              value={formData.action}
+              onChange={handleChange}
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+            >
+              <option value="create">Create</option>
+              <option value="update">Update</option>
+              <option value="delete">Delete</option>
+            </select>
+          </div>
 
-          {(formData.action === 'update' || formData.action === 'delete') && (
+          {formData.action === 'update' || formData.action === 'delete' ? (
             <div className="mb-4">
               <label className="block text-sm font-medium text-gray-700">ID</label>
               <input
@@ -155,10 +136,10 @@ const TrainingForm = ({ initialData = null, onSubmit }) => {
                 required
               />
             </div>
-          )}
+          ) : null}
 
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700">Name</label>
+            <label className="block text-sm font-medium text-gray-700">Name <span className="text-red-500">*</span></label>
             <input
               type="text"
               name="name"
@@ -170,7 +151,6 @@ const TrainingForm = ({ initialData = null, onSubmit }) => {
             />
           </div>
 
-
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700">Price</label>
             <input
@@ -180,12 +160,11 @@ const TrainingForm = ({ initialData = null, onSubmit }) => {
               onChange={handleChange}
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
               placeholder="Enter training price"
-              required
             />
           </div>
 
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700">Category</label>
+            <label className="block text-sm font-medium text-gray-700">Category <span className="text-red-500">*</span></label>
             <input
               type="text"
               name="category"
@@ -210,7 +189,7 @@ const TrainingForm = ({ initialData = null, onSubmit }) => {
           </div>
 
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700">Title</label>
+            <label className="block text-sm font-medium text-gray-700">Title <span className="text-red-500">*</span></label>
             <input
               type="text"
               name="title"
@@ -244,80 +223,94 @@ const TrainingForm = ({ initialData = null, onSubmit }) => {
             />
           </div>
 
+          {/* Weekly Classes */}
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700">Weekly Class Frequency</label>
-            <input
-              type="text"
-              name="weeklyClasses.frequency"
-              value={formData.weeklyClasses.frequency}
-              onChange={handleWeeklyClassChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-              placeholder="Enter weekly class frequency"
-            />
+            <label className="block text-sm font-medium text-gray-700">Weekly Classes</label>
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Frequency</label>
+                <input
+                  type="text"
+                  name="frequency"
+                  value={formData.weeklyClasses.frequency}
+                  onChange={handleWeeklyClassChange}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                  placeholder="Enter class frequency"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Days (comma separated)</label>
+                <input
+                  type="text"
+                  name="days"
+                  value={formData.weeklyClasses.days.join(', ')}
+                  onChange={(e) => handleWeeklyClassChange({ ...e, target: { ...e.target, name: 'days', value: e.target.value.split(',').map(day => day.trim()) } })}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                  placeholder="Enter class days"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Class Duration</label>
+                <input
+                  type="text"
+                  name="classDuration"
+                  value={formData.weeklyClasses.classDuration}
+                  onChange={handleWeeklyClassChange}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                  placeholder="Enter class duration"
+                />
+              </div>
+            </div>
           </div>
 
+          {/* Benefits */}
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700">Weekly Class Days</label>
-            <input
-              type="text"
-              name="weeklyClasses.days"
-              value={formData.weeklyClasses.days.join(', ')}
-              onChange={handleWeeklyClassChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-              placeholder="Enter weekly class days (comma-separated)"
-            />
+            <label className="block text-sm font-medium text-gray-700">Benefits</label>
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Strength</label>
+                <input
+                  type="text"
+                  name="strength"
+                  value={formData.benefits.strength}
+                  onChange={handleBenefitChange}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                  placeholder="Enter strength benefit"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Balance</label>
+                <input
+                  type="text"
+                  name="balance"
+                  value={formData.benefits.balance}
+                  onChange={handleBenefitChange}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                  placeholder="Enter balance benefit"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Focus</label>
+                <input
+                  type="text"
+                  name="focus"
+                  value={formData.benefits.focus}
+                  onChange={handleBenefitChange}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                  placeholder="Enter focus benefit"
+                />
+              </div>
+            </div>
           </div>
 
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700">Weekly Class Duration</label>
-            <input
-              type="text"
-              name="weeklyClasses.classDuration"
-              value={formData.weeklyClasses.classDuration}
-              onChange={handleWeeklyClassChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-              placeholder="Enter weekly class duration"
-            />
+          <div className="mb-4 text-center">
+            <button
+              type="submit"
+              className="bg-green-600 text-white px-6 py-3 rounded-lg text-lg font-semibold focus:outline-none focus:ring-2 focus:ring-green-500"
+            >
+              {formData.action === 'create' ? 'Create Training' : formData.action === 'update' ? 'Update Training' : 'Delete Training'}
+            </button>
           </div>
-          <div className="mb-4">
-    <label className="block text-sm font-medium text-gray-700">Strength Benefits</label>
-    <textarea
-      name="benefits.strength"
-      value={formData.benefits.strength}
-      onChange={handleBenefitChange}
-      className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-      placeholder="Enter strength benefits"
-    />
-  </div>
-
-  <div className="mb-4">
-    <label className="block text-sm font-medium text-gray-700">Balance Benefits</label>
-    <textarea
-      name="benefits.balance"
-      value={formData.benefits.balance}
-      onChange={handleBenefitChange}
-      className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-      placeholder="Enter balance benefits"
-    />
-  </div>
-
-  <div className="mb-4">
-    <label className="block text-sm font-medium text-gray-700">Focus Benefits</label>
-    <textarea
-      name="benefits.focus"
-      value={formData.benefits.focus}
-      onChange={handleBenefitChange}
-      className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-      placeholder="Enter focus benefits"
-    />
-  </div>
-
-  <button
-  type="submit"
-  className="w-full py-3 bg-green-600 text-white font-semibold rounded-md hover:bg-green-700 focus:outline-none transition duration-300"
->
-  Submit
-</button>
         </form>
       </div>
     </div>

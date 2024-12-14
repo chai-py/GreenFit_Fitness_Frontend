@@ -72,7 +72,7 @@ function Navbar() {
       <li><a href="/">Home</a></li>
       <li><a href="/training">Training</a></li>
       <li><a href="/contact">Contact</a></li> 
-      <li><a href="/trainingform">Admin</a></li>
+      <li><a href="/trainingform">Manage Training</a></li>
       {/* <li><a href="#">About</a></li>*/}
     </>
   );
@@ -91,27 +91,27 @@ function Navbar() {
               {navBar}
             </ul>
           </div>
-          <a className="btn btn-ghost text-xl font-bold tracking-wide">
+          <Link to="/" className="btn btn-ghost text-xl font-bold tracking-wide">
             <span className="text-green-700 dark:text-green-400">Green</span>
             <span className="text-gray-800 dark:text-white">Fit</span>
-          </a>
+          </Link>
         </div>
 
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{navBar}</ul>
         </div>
 
-        <div className='hidden md:block'>
+        {/* <div className='hidden md:block'>
           <label className="input input-bordered flex items-center gap-2 border border-green-500 focus-within:ring-2 focus-within:ring-green-500 mr-4">
             <input type="text" className="grow outline-none bg-transparent placeholder-opacity-70" placeholder="Search" />
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="h-4 w-4 text-green-500">
               <path fillRule="evenodd" d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z" clipRule="evenodd" />
             </svg>
           </label>
-        </div>
+        </div> */}
 
         {/* Cart Link */}
-        <div className="relative ml-4">
+        <div className="relative ml-16">
           <Link
             to="/cart" // Link to the Cart page
             className="bg-gray-800 text-white px-3 py-2 rounded-md hover:bg-gray-700 duration-300 cursor-pointer flex items-center gap-2"
@@ -141,7 +141,7 @@ function Navbar() {
         </div>
 
         {/* Theme Switcher */}
-        <div className='theme'>
+        {/* <div className='theme'>
           <label className="flex cursor-pointer gap-2">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <circle cx="12" cy="12" r="5" />
@@ -152,7 +152,7 @@ function Navbar() {
               <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
             </svg>
           </label>
-        </div>
+        </div> */}
       </div>
 
       {/* Modal */}

@@ -7,11 +7,15 @@ function ProductDetails({ addItemToCart }) {
   const { id } = useParams(); // Get the ID from the URL
   const [product, setProduct] = useState(null);
 
+  // Loading state
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     const getProductDetails = async () => {
       try {
         const res = await axios.get(`${urls.url}/training/${id}`);
         setProduct(res.data);
+        setIsLoading(false);
       } catch (error) {
         console.log("Error fetching product details:", error);
       }
@@ -19,7 +23,17 @@ function ProductDetails({ addItemToCart }) {
     getProductDetails();
   }, [id]);
 
-  if (!product) return <div>Loading...</div>;
+   // If still loading, show loading state
+   if (isLoading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen bg-gray-100">
+        <div className="text-center">
+          <div className="loader-border animate-spin rounded-full border-t-4 border-b-4 border-green-600 w-16 h-16 mx-auto mb-4"></div>
+          <p className="text-xl text-green-600">Loading product details...</p>
+        </div>
+      </div>
+    );
+  }
 
   const handleAddToCart = () => {
     // Call the addItemToCart function, passing the product to add it to the cart

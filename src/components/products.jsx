@@ -11,7 +11,7 @@ function Products({ item, addItemToCart }) {
   return (
     <>
       <div className="mt-5 my-3 p-2">
-        <div className="card bg-base-96 w-96 shadow-xl hover:scale-110 duration-150">
+      <div className="card bg-base-96 w-full sm:w-96 md:w-72 lg:w-96 shadow-xl hover:scale-105 duration-150">
           <figure>
             <img
               src={item.image}

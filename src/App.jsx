@@ -13,12 +13,14 @@ import SignIn from './components/SignIn';
 import ContactUs from './components/Contact';
 import ProtectedRoute from './components/ProtectedRoute';
 import TrainingForm from './components/TrainingForm';
+import Footer from './components/Footer';
 
 
 
 
 function App() {
   const [cart, setCart] = useState([]); // Global cart state
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Add to cart function
   const addItemToCart = (name, price, category, image, title) => {
@@ -33,6 +35,7 @@ function App() {
   useEffect(() => {
     console.log('Cart updated:', cart); // Log updated cart after state change
   }, [cart]); // Run every time the cart state changes
+  
 
   return (
     <>
@@ -41,14 +44,22 @@ function App() {
       {/* <AuthProvider> */}
       <Routes>
          {/* Protecting /training/:id route for authenticated users */}
-         <Route
+         {/* <Route
           path="/training/:id"
           element={
             <ProtectedRoute>
               <ProductDetails addItemToCart={addItemToCart} />
             </ProtectedRoute>
           }
-        />
+        /> */}
+        <Route
+  path="/training"
+  element={
+    <ProtectedRoute>
+      <Training addItemToCart={addItemToCart} />
+    </ProtectedRoute>
+  }
+/>
         
         {/* Protecting /trainingform route for admin users only */}
         <Route
@@ -64,11 +75,13 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/contact" element={<ContactUs />} />
          {/* <Route path="/training" element={<ProtectedRoute element={Training} />} /> */}
-        <Route path="/training" element={<Training addItemToCart={addItemToCart} />} />
+        {/* <Route path="/training" element={<Training addItemToCart={addItemToCart} />} /> */}
         <Route path="/training/:id" element={<ProductDetails addItemToCart={addItemToCart} />} />
         <Route path="/cart" element={<Cart cart={cart} />} />
         <Route path="/success" element={<SuccessPage />} />
+        <Route path="/footer" element={<Footer />} />
         <Route path="/product/:id" element={<ProductDetails />} />
+
         {/* <Route path="/trainingform" element={<TrainingForm />} /> */}
         {/* <Route path="/trainingform" element={<ProtectedRoute><TrainingForm /></ProtectedRoute>} /> */}
         {/* <Route path="/trainingform" element={<ProtectedRoute />}>
