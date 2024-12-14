@@ -46,6 +46,7 @@ function FreeTraining({ addItemToCart }) {
           slidesToShow: 2,
           slidesToScroll: 2,
           initialSlide: 2,
+          infinite: true,
         },
       },
       {
@@ -53,6 +54,8 @@ function FreeTraining({ addItemToCart }) {
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
+          initialSlide: 1,
+          infinite: true,
         },
       },
     ],
