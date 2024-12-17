@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import axios from "axios"; // Import axios for API calls
+import axios from "axios"; 
 import { urls } from "../constants";
 
 function SignUp() {

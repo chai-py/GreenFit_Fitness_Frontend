@@ -33,7 +33,7 @@ const CheckoutForm = ({ clientSecret }) => {
       if (paymentIntent.status === 'succeeded') {
         setPaymentSuccess(true); // Set success state if payment is successful
         console.log('[PaymentIntent]', paymentIntent);
-        // Optionally, redirect the user to a success page or show a success message
+        
       }
     }
   };

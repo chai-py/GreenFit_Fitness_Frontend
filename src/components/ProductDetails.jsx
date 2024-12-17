@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom"; // Import useParams to get the product ID from the URL
+import { useParams } from "react-router-dom"; 
 import axios from "axios";
 import { urls } from "../constants";
 
 function ProductDetails({ addItemToCart }) {
-  const { id } = useParams(); // Get the ID from the URL
+  const { id } = useParams(); 
   const [product, setProduct] = useState(null);
 
   // Loading state

@@ -4,7 +4,7 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import Products from "./products";
 import axios from "axios";
-import { Link } from "react-router-dom"; // Import Link component from react-router-dom
+import { Link } from "react-router-dom"; 
 import { urls } from "../constants";
 
 function FreeTraining({ addItemToCart }) {

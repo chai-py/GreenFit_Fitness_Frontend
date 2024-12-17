@@ -3,14 +3,14 @@ import { Link, useNavigate } from "react-router-dom";
 import { loadStripe } from "@stripe/stripe-js";
 import { urls } from "../constants";
 
-// Load Stripe with your publishable key
+
 const stripePromise = loadStripe(
   "pk_test_51QTf99Kj2nWGPj5752AjxmEah8N598npWqZIdjnkWWUATUt6yrRGu8f6LyzY4TZc6MnUGJX3bbN7wuowDA42CpVj00dvNQtzfJ"
 );
 
 const Cart = ({ cart, setCart }) => {
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate(); // Hook to programmatically navigate
+  const navigate = useNavigate(); 
 
   const handleClearCart = () => {
     if (window.confirm("Are you sure you want to clear your cart?")) {

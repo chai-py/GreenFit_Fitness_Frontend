@@ -19,7 +19,7 @@ function ContactUs() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Here you can add API call to send form data
+    
     try {
       // Mock API call simulation
       setStatus('Sending...');

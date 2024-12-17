@@ -43,15 +43,7 @@ function App() {
       <Navbar cart={cart} setCart={setCart} />
       {/* <AuthProvider> */}
       <Routes>
-         {/* Protecting /training/:id route for authenticated users */}
-         {/* <Route
-          path="/training/:id"
-          element={
-            <ProtectedRoute>
-              <ProductDetails addItemToCart={addItemToCart} />
-            </ProtectedRoute>
-          }
-        /> */}
+         
         <Route
   path="/training"
   element={
@@ -73,20 +65,12 @@ function App() {
         <Route path="/SignUp" element={<SignUp key="signup" />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/" element={<Home />} />
-        <Route path="/contact" element={<ContactUs />} />
-         {/* <Route path="/training" element={<ProtectedRoute element={Training} />} /> */}
-        {/* <Route path="/training" element={<Training addItemToCart={addItemToCart} />} /> */}
+        <Route path="/contact" element={<ContactUs />} />        
         <Route path="/training/:id" element={<ProductDetails addItemToCart={addItemToCart} />} />
         <Route path="/cart" element={<Cart cart={cart} />} />
         <Route path="/success" element={<SuccessPage />} />
         <Route path="/footer" element={<Footer />} />
         <Route path="/product/:id" element={<ProductDetails />} />
-
-        {/* <Route path="/trainingform" element={<TrainingForm />} /> */}
-        {/* <Route path="/trainingform" element={<ProtectedRoute><TrainingForm /></ProtectedRoute>} /> */}
-        {/* <Route path="/trainingform" element={<ProtectedRoute />}>
-        <Route path="" element={<TrainingForm />} />
-      </Route> */}
 
        
     </Routes>

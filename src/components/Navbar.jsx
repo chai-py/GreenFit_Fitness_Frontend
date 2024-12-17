@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ShoppingCartIcon } from '@heroicons/react/20/solid';
-import { Link, useNavigate } from 'react-router-dom'; // Import Link to navigate to the Cart page
+import { Link, useNavigate } from 'react-router-dom'; 
 import SignIn from './SignIn';
 
 function Navbar() {
