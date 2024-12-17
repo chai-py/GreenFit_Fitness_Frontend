@@ -1,4 +1,4 @@
-# GreenFit_Fitness_Backend
+# GreenFit_Fitness_Frontend
 
 # Project Title: GreenFit Fitness - Full-Stack Web Application
 
